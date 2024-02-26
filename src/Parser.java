@@ -1,6 +1,6 @@
 public class Parser {
-    private String str;
-    private int length;
+    private final String str;
+    private final int length;
     private int count = 0;
     Parser(String str1){
         str = str1;
@@ -13,18 +13,18 @@ public class Parser {
         }
         if ('+' == str.charAt(count)){
             //System.out.println(str.charAt(count));
-            int value = (int)str.charAt(count);
+            int value = str.charAt(count);
             count++;
             Tree rightTree = S();
             return new Tree(value, true, leftTree, rightTree);
         }
         if ('-' == str.charAt(count)){
-            int value = (int)str.charAt(count);
+            int value = str.charAt(count);
             count++;
             Tree rightTree = S();
             return new Tree(value, true, leftTree, rightTree);
         }
-        return null;
+        return leftTree;
     }
     Tree M(){
         Tree leftTree = P();
@@ -32,13 +32,13 @@ public class Parser {
             return leftTree;
         }
         if ('*' == str.charAt(count)){
-            int value = (int)str.charAt(count);
+            int value = str.charAt(count);
             count++;
             Tree rightTree = M();
             return new Tree(value, true, leftTree, rightTree);
         }
         if ('/' == str.charAt(count)){
-            int value = (int)str.charAt(count);
+            int value = str.charAt(count);
             count++;
             Tree rightTree = M();
             return new Tree(value, true, leftTree, rightTree);
