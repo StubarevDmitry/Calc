@@ -6,31 +6,45 @@ public class Parser {
         str = str1;
         length = str.length();
     }
+    void Skip(){
+        if (count == length){
+            return;
+        }
+        while(str.charAt(count) == ' '){
+            count++;
+            if (count == length){
+                return;
+            }
+        }
+
+    }
     Tree S(){
+        Skip();
         Tree leftTree = M();
+        Skip();
+        //Tree allTree = null;
         if (count == length){
             return leftTree;
         }
-        if ('+' == str.charAt(count)){
-            //System.out.println(str.charAt(count));
-            int value = str.charAt(count);
-            count++;
-            Tree rightTree = S();
-            return new Tree(value, true, leftTree, rightTree);
-        }
-        if ('-' == str.charAt(count)){
-            int value = str.charAt(count);
-            count++;
-            Tree rightTree = S();
-            return new Tree(value, true, leftTree, rightTree);
+        while (str.charAt(count) == '+' || str.charAt(count) == '-'){
+                int value = str.charAt(count);
+                count++;
+                Tree rightTree = M();
+                leftTree = new Tree(value,true, leftTree, rightTree);
+                if (count == length){
+                    return leftTree;
+                }
         }
         return leftTree;
     }
     Tree M(){
+        Skip();
         Tree leftTree = P();
+        Skip();
         if (count == length){
             return leftTree;
         }
+
         if ('*' == str.charAt(count)){
             int value = str.charAt(count);
             count++;
@@ -46,6 +60,7 @@ public class Parser {
         return leftTree;
     }
     Tree P(){
+        Skip();
         if(count == length){
             return null;
         }
@@ -70,4 +85,5 @@ public class Parser {
         }
         return null;
     }
+
 }

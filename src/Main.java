@@ -4,16 +4,16 @@ public class Main {
     static int TreeTraversal(Tree tree){
         int total = 0;
         if (tree.isOperation){
-            if(tree.value == 43){//+
+            if(tree.value == '+'){//+
                 total = TreeTraversal(tree.left) + TreeTraversal(tree.right);
             }
-            if(tree.value == 42){//*
+            if(tree.value == '*'){//*
                 total = TreeTraversal(tree.left) * TreeTraversal(tree.right);
             }
-            if(tree.value == 45){//-
+            if(tree.value == '-'){//-
                 total = TreeTraversal(tree.left) - TreeTraversal(tree.right);
             }
-            if(tree.value == 47){//"/"
+            if(tree.value == '/'){//"/"
                 total = TreeTraversal(tree.left) / TreeTraversal(tree.right);
             }
         }
@@ -22,8 +22,9 @@ public class Main {
         }
         return total;
     }
+
     public static void main(String[] args) {
-        Parser parser = new Parser("(2+4)*100+666");
+        Parser parser = new Parser("8 + 1*2 +3");
         Tree tree = parser.S();
         System.out.println(TreeTraversal(tree));
     }
